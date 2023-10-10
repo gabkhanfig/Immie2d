@@ -1,11 +1,9 @@
 use std::{net::TcpListener, net::TcpStream, thread, io::{self, Read, Write}, time};
 
-use immie2d_shared::TestStruct;
-
 fn  handle_sender(mut stream: TcpStream) -> io::Result<()>{
     let mut buf = [0;512];
     for _ in 0..5 {
-        let bytes_read = stream.read(&mut buf)?;
+        let bytes_read = stream.read(&mut buf)?; // TODO add support for client closing connection.
 
         if bytes_read == 0 {
             println!("no bytes read");

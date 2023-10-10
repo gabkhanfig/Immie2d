@@ -1,8 +1,6 @@
 use std::{net::TcpStream, io::{self, Write, BufReader, BufRead, ErrorKind}};
 use std::str;
 
-use immie2d_shared::TestStruct;
-
 
 fn main() {
     let mut stream = TcpStream::connect("127.0.0.1:7878").expect("failed to connect");
@@ -20,7 +18,7 @@ fn main() {
             }
             else {
                 println!("Some write error occurred {err}");
-            }
+            } 
             break;
         }
 
