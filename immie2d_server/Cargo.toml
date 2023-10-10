@@ -1,0 +1,9 @@
+[package]
+name = "immie2d_server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+immie2d_shared = { path = "../immie2d_shared" }
