@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        ".\\immie2d_shared\\Cargo.toml"
+    ]
+}
