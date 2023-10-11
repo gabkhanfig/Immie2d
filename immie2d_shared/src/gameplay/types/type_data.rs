@@ -1,5 +1,4 @@
-use std::fmt::Display;
-use std::arch;
+use std::fmt;
 
 use super::type_kinds::TypeKind;
 use super::type_kinds::TYPE_COUNT;
@@ -49,6 +48,29 @@ impl Type {
     }
 
 }
+
+impl fmt::Debug for Type {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Type {{ type_count: {:?}, types: [", self.type_count)?;
+        for i in 0..self.type_count {
+            let t = self.types[i as usize];
+            if i == self.type_count - 1 { // last iteration
+                write!(f, "{}", t)?;
+                continue;
+            }
+            write!(f, "{}, ", t)?; 
+        }
+        return write!(f, "] }}");
+    }
+}
+
+impl fmt::Display for Type {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        return write!(f, "{:?}", self);
+    }
+}
+
+
 
 pub struct TypeIter<'a> {
     types: &'a Type,
