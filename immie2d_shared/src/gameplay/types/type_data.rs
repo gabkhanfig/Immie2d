@@ -165,17 +165,17 @@ impl fmt::Display for Type {
 
 pub struct TypeIter<'a> {
     types: &'a Type,
-    index: usize
+    index: u8
 }
 
 impl<'a> Iterator for TypeIter<'a> {
     type Item = TypeKind;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if self.index >= self.types.type_count as usize {
+        if self.index >= self.types.type_count {
             return None;
         }
         self.index += 1;
-        return Some(self.types.types[self.index - 1]);
+        return Some(self.types.types[self.index as usize - 1]);
     }
 }
