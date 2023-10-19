@@ -12,95 +12,95 @@ pub struct Elements {
 impl Elements {
     /// We create an instance of Elements using a vector of ElementKind.
     /// ```
-    /// use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
+    /// use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
     /// 
-    /// let Elementss = Elements::new(vec![ElementKind::Fire, ElementKind::Standard]);
-    /// let other_Elementss = Elements::new(vec![ElementKind::Water]);
+    /// let elements = Elements::new(vec![ElementKind::Fire, ElementKind::Standard]);
+    /// let other_elements = Elements::new(vec![ElementKind::Water]);
     /// ```
-    /// The Elementss will be set in the vec order.
+    /// The elements will be set in the vec order.
     /// Elements::new() will not accept duplicate entries and will panic.
     /// ``` should_panic
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
     /// // Will panic
-    /// let Elementss = Elements::new(vec![ElementKind::Fire, ElementKind::Standard, ElementKind::Fire]);
+    /// let elements = Elements::new(vec![ElementKind::Fire, ElementKind::Standard, ElementKind::Fire]);
     /// ```
     /// You also cannot use ElementKind::Invalid. Doing so will cause a panic.
     /// ``` should_panic
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
     /// // Will panic
-    /// let Elementss = Elements::new(vec![ElementKind::Invalid]);
+    /// let elements = Elements::new(vec![ElementKind::Invalid]);
     /// ```
-    pub fn new(in_Elementss: Vec<ElementKind>) -> Elements {
-        assert!(in_Elementss.len() > 0, "Cannot create an instance of Elements with 0 Elementss. See enum ElementKind");
+    pub fn new(in_elements: Vec<ElementKind>) -> Elements {
+        assert!(in_elements.len() > 0, "Cannot create an instance of Elements with 0 elements. See enum ElementKind");
         let mut elements_data = Elements {
             elements_count: 0,
             elements: [ElementKind::Invalid; ELEMENT_COUNT as usize]
         };
-        for t in in_Elementss {
+        for t in in_elements {
             assert!(t != ElementKind::Invalid, "Cannot use ElementKind::Invalid as a Elements");
-            elements_data.add_Elements(t);
+            elements_data.add_elements(t);
         }
         return elements_data;
     }
 
     /// Check if the Elements instance has a specific Elements.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let Elementss = Elements::new(vec![ElementKind::Fire]);
-    /// let is_Elements_present = Elementss.has_Elements(ElementKind::Fire);
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let elements = Elements::new(vec![ElementKind::Fire]);
+    /// let is_Elements_present = elements.has_elements(ElementKind::Fire);
     /// assert!(is_Elements_present);
     /// ```
     /// It will check through the entire array.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let Elementss = Elements::new(vec![ElementKind::Water, ElementKind::Metal, ElementKind::Dragon]);
-    /// assert!(Elementss.has_Elements(ElementKind::Dragon));
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let elements = Elements::new(vec![ElementKind::Water, ElementKind::Metal, ElementKind::Dragon]);
+    /// assert!(elements.has_elements(ElementKind::Dragon));
     /// ```
-    pub fn has_Elements(&self, in_Elements: ElementKind) -> bool {
+    pub fn has_elements(&self, in_elements: ElementKind) -> bool {
         for i in 0..self.elements_count as usize {
-            if self.elements[i] == in_Elements  { return true; }
+            if self.elements[i] == in_elements  { return true; }
         }
         return false;
     }
 
     /// Adds a ElementKind to a mutable instance of Elements.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let mut Elementss = Elements::new(vec![ElementKind::Ground]);
-    /// Elementss.add_Elements(ElementKind::Water);
-    /// assert!(Elementss.has_Elements(ElementKind::Water));
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let mut elements = Elements::new(vec![ElementKind::Ground]);
+    /// elements.add_elements(ElementKind::Water);
+    /// assert!(elements.has_elements(ElementKind::Water));
     /// ```
     /// Will panic if the Elements is already present, as duplicates are not allowed
     /// ``` should_panic
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let mut Elementss = Elements::new(vec![ElementKind::Air]);
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let mut elements = Elements::new(vec![ElementKind::Air]);
     /// // Will panic
-    /// Elementss.add_Elements(ElementKind::Air);
+    /// elements.add_elements(ElementKind::Air);
     /// ```
     /// Will also panic if the Elements enum variant used is ElementKind::Invalid
     /// ``` should_panic
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let mut Elementss = Elements::new(vec![ElementKind::Fire]);
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let mut elements = Elements::new(vec![ElementKind::Fire]);
     /// // Will panic
-    /// Elementss.add_Elements(ElementKind::Invalid);
+    /// elements.add_elements(ElementKind::Invalid);
     /// ```
-    pub fn add_Elements(&mut self, in_Elements: ElementKind) {
-        assert!(!self.has_Elements(in_Elements), "Elements cannot contain duplicate Elementss. Attempted to add Elements: {:?}\nThe current Elementss are: {:?}", in_Elements, self.get_Elementss());
-        assert!(in_Elements != ElementKind::Invalid, "Cannot use ElementKind::Invalid as a Elements");
+    pub fn add_elements(&mut self, in_elements: ElementKind) {
+        assert!(!self.has_elements(in_elements), "Elements cannot contain duplicate elements. Attempted to add Elements: {:?}\nThe current elements are: {:?}", in_elements, self.get_elements());
+        assert!(in_elements != ElementKind::Invalid, "Cannot use ElementKind::Invalid as a Elements");
         debug_assert!(self.elements_count < ELEMENT_COUNT as u8); // This should technically never happen because of preventing duplicate entries
-        self.elements[self.elements_count as usize] = in_Elements;
+        self.elements[self.elements_count as usize] = in_elements;
         self.elements_count += 1;
     }
 
-    /// Get the Elementss held within the Elements instance as a new vector.
+    /// Get the elements held within the Elements instance as a new vector.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let Elementss = Elements::new(vec![ElementKind::Light, ElementKind::Dark]);
-    /// let v = Elementss.get_Elementss();
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let elements = Elements::new(vec![ElementKind::Light, ElementKind::Dark]);
+    /// let v = elements.get_elements();
     /// assert!(v[0] == ElementKind::Light);
     /// assert!(v[1] == ElementKind::Dark);
     /// ```
-    pub fn get_Elementss(&self) -> Vec<ElementKind> {
+    pub fn get_elements(&self) -> Vec<ElementKind> {
         let mut v: Vec<ElementKind> = Vec::new();
         for t in self.iter() {
             v.push(t);
@@ -108,29 +108,29 @@ impl Elements {
         return v;
     }
 
-    /// Get the number of Elementss held within this Elements instance.
+    /// Get the number of elements held within this Elements instance.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let Elementss = Elements::new(vec![ElementKind::Electric, ElementKind::Air, ElementKind::Metal, ElementKind::Dragon]);
-    /// assert_eq!(Elementss.get_Elements_count(), 4);
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let elements = Elements::new(vec![ElementKind::Electric, ElementKind::Air, ElementKind::Metal, ElementKind::Dragon]);
+    /// assert_eq!(elements.get_elements_count(), 4);
     /// ```
-    pub fn get_Elements_count(&self) -> u8 {
+    pub fn get_elements_count(&self) -> u8 {
         return self.elements_count;
     }
 
-    /// Get an iterator to the Elementss held by this Elements instance.
+    /// Get an iterator to the elements held by this Elements instance.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let Elementss = Elements::new(vec![ElementKind::Fire, ElementKind::Water, ElementKind::Nature]);
-    /// for t in Elementss.iter() {
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let elements = Elements::new(vec![ElementKind::Fire, ElementKind::Water, ElementKind::Nature]);
+    /// for t in elements.iter() {
     ///     // Do some stuff
     /// }
     /// ```
-    /// Will not exceed the number of Elementss.
+    /// Will not exceed the number of elements.
     /// ```
-    /// # use immie2d_shared::gameplay::Elementss::{elements_data::Elements, element_kinds::ElementKind};
-    /// let Elementss = Elements::new(vec![ElementKind::Fire, ElementKind::Water, ElementKind::Nature]);
-    /// let mut iterator = Elementss.iter();
+    /// # use immie2d_shared::gameplay::elements::{elements_data::Elements, element_kinds::ElementKind};
+    /// let elements = Elements::new(vec![ElementKind::Fire, ElementKind::Water, ElementKind::Nature]);
+    /// let mut iterator = elements.iter();
     /// assert_eq!(iterator.next().unwrap(), ElementKind::Fire);
     /// assert_eq!(iterator.next().unwrap(), ElementKind::Water);
     /// assert_eq!(iterator.next().unwrap(), ElementKind::Nature);
@@ -144,7 +144,7 @@ impl Elements {
 
 impl fmt::Debug for Elements {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Elements {{ Elements_count: {:?}, Elementss: [", self.elements_count)?;
+        write!(f, "Elements {{ Elements_count: {:?}, elements: [", self.elements_count)?;
         for i in 0..self.elements_count {
             let t = self.elements[i as usize];
             if i == self.elements_count - 1 { // last iteration
