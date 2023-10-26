@@ -4,6 +4,7 @@ use super::element_kinds::ElementKind;
 use super::element_kinds::ELEMENT_COUNT;
 
 /* Elements is a bitmask of multiple ElementsFlags. */
+#[derive(Clone, Copy)]
 pub struct Elements { 
     elements_count: u8,
     elements: [ElementKind; ELEMENT_COUNT as usize]
