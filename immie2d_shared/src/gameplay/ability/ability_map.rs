@@ -13,7 +13,7 @@ impl AbilityMap {
 
     /// Dependency inject ability.
     /// ```
-    /// use immie2d_shared::gameplay::ability::{ability::AbilityMap, abilities::fireball::Fireball};
+    /// use immie2d_shared::gameplay::ability::{ability_map::AbilityMap, abilities::fireball::Fireball};
     /// let mut map = AbilityMap::new();
     /// map.add_ability::<Fireball>();
     /// ```
@@ -23,14 +23,14 @@ impl AbilityMap {
 
     /// Create a new instance of Ability.
     /// ```
-    /// # use immie2d_shared::gameplay::ability::{ability::AbilityMap, abilities::fireball::Fireball};
+    /// # use immie2d_shared::gameplay::ability::{ability_map::AbilityMap, abilities::fireball::Fireball};
     /// let mut map = AbilityMap::new();
     /// map.add_ability::<Fireball>();
     /// let ability = map.new_ability("fireball");
     /// ```
     /// Will panic if ability name doesn't exist. See AbilityMap::is_ability_name()
     /// ``` should_panic
-    /// # use immie2d_shared::gameplay::ability::{ability::AbilityMap, abilities::fireball::Fireball};
+    /// # use immie2d_shared::gameplay::ability::{ability_map::AbilityMap, abilities::fireball::Fireball};
     /// # let mut map = AbilityMap::new();
     /// # map.add_ability::<Fireball>();
     /// // Will panic
@@ -43,7 +43,7 @@ impl AbilityMap {
 
     /// Check if an ability name is valid.
     /// ```
-    /// # use immie2d_shared::gameplay::ability::{ability::AbilityMap, abilities::fireball::Fireball};
+    /// # use immie2d_shared::gameplay::ability::{ability_map::AbilityMap, abilities::fireball::Fireball};
     /// let mut map = AbilityMap::new();
     /// map.add_ability::<Fireball>();
     /// assert!(map.is_ability_name("fireball") == true);
