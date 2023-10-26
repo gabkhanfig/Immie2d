@@ -13,7 +13,7 @@ lazy_static! {
     };
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq)]
 pub struct GlobalString {
     internal_string: *const String
 }
