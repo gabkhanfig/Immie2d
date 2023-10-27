@@ -1,4 +1,4 @@
-use super::super::types::type_data::Type;
+use super::super::elements::elements_data::Elements;
 
 pub trait Ability {
     fn new() -> Box<dyn Ability>
@@ -21,7 +21,7 @@ pub enum AbilityCategory {
 
 pub struct BaseAbilityData {
     pub category: AbilityCategory,
-    pub types: Type,
+    pub types: Elements,
     pub power: f32,
     pub speed: f32,
 }
