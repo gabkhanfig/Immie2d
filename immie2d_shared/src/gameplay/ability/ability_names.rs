@@ -1,3 +1,5 @@
+use std::fmt;
+
 use crate::engine_types::global_string::GlobalString;
 
 pub const MAX_ABILITIES_COUNT: usize = 5;
@@ -170,5 +172,26 @@ impl<'a> Iterator for AbilityNamesIter<'a> {
         }
         self.index += 1;
         return Some(self.ability_names.names[self.index - 1]);
+    }
+}
+
+impl fmt::Debug for AbilityNames {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "AbilityNames {{ count: {:?}, names: [", self.count)?; 
+        for i in 0..self.count {
+            let t = self.names[i];
+            if i == self.count - 1 { // last iteration
+                write!(f, "{}", t)?;
+                break;
+            }
+            write!(f, "{}, ", t)?; 
+        }
+        return write!(f, "] }}");
+    }
+}
+
+impl fmt::Display for AbilityNames {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        return write!(f, "{:?}", self);
     }
 }
