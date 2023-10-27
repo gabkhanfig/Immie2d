@@ -145,12 +145,12 @@ impl Elements {
 
 impl fmt::Debug for Elements {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Elements {{ Elements_count: {:?}, elements: [", self.elements_count)?;
+        write!(f, "Elements {{ elements_count: {:?}, elements: [", self.elements_count)?;
         for i in 0..self.elements_count {
             let t = self.elements[i as usize];
             if i == self.elements_count - 1 { // last iteration
                 write!(f, "{}", t)?;
-                continue;
+                break;
             }
             write!(f, "{}, ", t)?; 
         }
