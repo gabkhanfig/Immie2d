@@ -2,13 +2,13 @@ use std::fmt;
 
 use crate::engine_types::global_string::GlobalString;
 
-pub const MAX_ABILITIES_COUNT: usize = 5;
+pub const MAX_ABILITIES_COUNT: u32 = 5;
 
 /* Container to store the names of abilities */
 #[derive(Clone, Copy)]
 pub struct AbilityNames {
-    names: [GlobalString; MAX_ABILITIES_COUNT],
-    count: usize
+    names: [GlobalString; MAX_ABILITIES_COUNT as usize],
+    count: u32
 }
 
 impl AbilityNames {
@@ -20,7 +20,7 @@ impl AbilityNames {
     /// ```
     pub fn default() -> AbilityNames {
         return AbilityNames {
-            names: [GlobalString::default(); MAX_ABILITIES_COUNT],
+            names: [GlobalString::default(); MAX_ABILITIES_COUNT as usize],
             count: 0
         }
     }
@@ -50,7 +50,7 @@ impl AbilityNames {
     /// let abilities = AbilityNames::new(vec![GlobalString::new(&"a".to_string()), GlobalString::new(&"b".to_string()), GlobalString::new(&"c".to_string()), GlobalString::new(&"d".to_string()), GlobalString::new(&"e".to_string()), GlobalString::new(&"f".to_string())]);
     /// ```
     pub fn new(in_abilities: Vec<GlobalString>) -> AbilityNames {
-        assert!(in_abilities.len() <= MAX_ABILITIES_COUNT, "Cannot create an instance of AbilityNames with more abilities than the max of {}", MAX_ABILITIES_COUNT);
+        assert!(in_abilities.len() <= MAX_ABILITIES_COUNT as usize, "Cannot create an instance of AbilityNames with more abilities than the max of {}", MAX_ABILITIES_COUNT);
         let mut ability_names = AbilityNames::default();
         for name in in_abilities {
             ability_names.add_ability(name);
@@ -69,7 +69,7 @@ impl AbilityNames {
     /// ```
     pub fn has_ability(&self, in_ability: GlobalString) -> bool {
         for i in 0..self.count {
-            if self.names[i] == in_ability {return true;}
+            if self.names[i as usize] == in_ability {return true;}
         }
         return false;
     }
@@ -102,7 +102,7 @@ impl AbilityNames {
     pub fn add_ability(&mut self, in_ability: GlobalString) {
         assert!(!self.has_ability(in_ability), "AbilityNames cannot contain duplicate names. Attempted to add ability name: {}\nThe current names are: {:?}", in_ability, self.get_names());
         assert!(self.count < MAX_ABILITIES_COUNT, "Cannot add another ability. All ability name slots are occupied. Max allowed is {}", MAX_ABILITIES_COUNT);
-        self.names[self.count] = in_ability;
+        self.names[self.count as usize] = in_ability;
         self.count += 1;
     }
 
@@ -113,7 +113,7 @@ impl AbilityNames {
     /// let abilities = AbilityNames::new(vec![GlobalString::new(&"fireball".to_string())]);
     /// assert_eq!(abilities.get_count(), 1);
     /// ```
-    pub fn get_count(&self) -> usize { 
+    pub fn get_count(&self) -> u32 { 
         return self.count; 
     }
 
@@ -129,7 +129,7 @@ impl AbilityNames {
     pub fn get_names(&self) -> Vec<GlobalString> {
         let mut v: Vec<GlobalString> = Vec::new();
         for i in 0..self.count {
-            v.push(self.names[i].clone());
+            v.push(self.names[i as usize].clone());
         }
         return v;
     }
@@ -160,7 +160,7 @@ impl AbilityNames {
 
 pub struct AbilityNamesIter<'a> {
     ability_names: &'a AbilityNames,
-    index: usize
+    index: u32
 }
 
 impl<'a> Iterator for AbilityNamesIter<'a> {
@@ -171,7 +171,7 @@ impl<'a> Iterator for AbilityNamesIter<'a> {
             return None;
         }
         self.index += 1;
-        return Some(self.ability_names.names[self.index - 1]);
+        return Some(self.ability_names.names[(self.index - 1) as usize]);
     }
 }
 
@@ -179,7 +179,7 @@ impl fmt::Debug for AbilityNames {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "AbilityNames {{ count: {:?}, names: [", self.count)?; 
         for i in 0..self.count {
-            let t = self.names[i];
+            let t = self.names[i as usize];
             if i == self.count - 1 { // last iteration
                 write!(f, "{}", t)?;
                 break;
